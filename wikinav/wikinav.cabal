@@ -10,17 +10,20 @@ maintainer:          alessio.b.zakaria@gmail.com
 copyright:           lol
 category:            Web
 build-type:          Simple
-extra-source-files:  README.md
+extra-source-files:  README.md 
 cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Lib, DatabaseFreq
   build-depends:       base >= 4.7 && < 5
                      , aeson
                      , servant-server
                      , wai
                      , warp
+                     , split
+                     , http-conduit
+                     , hakyll
                      , http-media
                      , directory
                      , time
@@ -30,10 +33,12 @@ library
                      , mtl
                      , containers
                      , base-compat
+                     , text
                      , bytestring
                      , string-conversions
                      , lucid
                      , aeson-compat
+                     , sqlite-simple
   default-language:    Haskell2010
 
 executable wikinav-exe
@@ -43,6 +48,15 @@ executable wikinav-exe
   build-depends:       base
                      , wikinav
   default-language:    Haskell2010
+
+executable dbuild-exe
+  hs-source-dirs:      app
+  main-is:             DBuild.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , wikinav
+  default-language:    Haskell2010
+
 
 test-suite wikinav-test
   type:                exitcode-stdio-1.0
