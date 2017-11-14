@@ -39,6 +39,9 @@ library
                      , lucid
                      , aeson-compat
                      , sqlite-simple
+                     , listsafe
+                     , regex-pcre-builtin
+                     , keys
   default-language:    Haskell2010
 
 executable wikinav-exe
