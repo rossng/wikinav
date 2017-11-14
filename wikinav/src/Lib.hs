@@ -38,8 +38,11 @@ import Text.Blaze.Html.Renderer.Utf8
 import qualified Data.Aeson.Parser
 import qualified Text.Blaze.Html
 
+type NotifyAPI = "wiki" :> Capture "url" :> POST `[JSON] Frequency
 
 type WordAPI1 = "word" :> Get '[JSON] [Frequency]
+
+type API = NotifyAPI | WordAPI1
 
 type FreqMap = Map String Float
 
@@ -55,11 +58,16 @@ freqmap = Map.singleton "and" 1
 words1 :: [Frequency]
 words1 = [ Frequency freqmap]
 
-server1 :: Server WordAPI1
+server1 :: Handler WordAPI1
 server1 = return words1
+
+server2 :: String -> Handler NotifyAPI
+server2 url = lift $ writeFile "current.txt" url
 
 wordAPI :: Proxy WordAPI1
 wordAPI = Proxy
+
+server = server1 :<|> server2
 
 app1 :: Application
 app1 = serve wordAPI server1
