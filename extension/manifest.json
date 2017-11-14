@@ -1,0 +1,20 @@
+{
+
+  "manifest_version": 2,
+  "name": "Wikinav",
+  "version": "1.0",
+
+  "description": "Scrolls through wikipedia articles.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.wikipedia.org/*"],
+      "js": ["jquery.js", "scroll.js"]
+    }
+  ]
+
+}
